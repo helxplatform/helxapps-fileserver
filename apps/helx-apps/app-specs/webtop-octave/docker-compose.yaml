@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+
+   webtop-octave:
+      image: "{{ helx_registry }}/helxplatform/webtop/octave:v0.0.2"
+      container_name: webtop-octave
+      entrypoint: /init
+      ports:
+        - 3000:3000
+      volumes:
+          - pvc://projects-pvc:/projects
+      deploy:
+        resources:
+          limits:
+            cpus: '2'
+            memory: 2048M
+          reservations:
+            cpus: '.5'
+            memory: 1024M

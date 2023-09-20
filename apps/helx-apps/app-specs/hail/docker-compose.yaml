@@ -1,0 +1,25 @@
+# Docker compose formatted system.
+version: "3"
+services:
+  hail:
+    # image: "{{ third_party_registry }}/helxplatform/helx-hail:develop-v0.0.7"
+    image: "docker.io/helxplatform/helx-hail:develop-v0.0.7"
+    ports:
+      - 8000:8000
+    entrypoint:
+      - /bin/bash
+      - -c
+      - /entrypoint.sh
+    volumes:
+      - pvc://helx-sidecar-test/sidecar:/sidecar
+    deploy:
+      resources:
+        # keep the limit low as most of the orchestration occurs outside of
+        # the immediate container context.
+        limits:
+          cpus: '1'
+          memory: 1000M
+        reservations:
+          cpus: '1'
+          memory: 1000M 
+

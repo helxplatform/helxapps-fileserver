@@ -1,0 +1,18 @@
+version: "3.6"
+services:
+  napari:
+    image: "{{ third_party_registry }}/helxplatform/cloudtop-napari:bullseye-v0.0.1"
+    container_name: napari
+    entrypoint: /init
+    ports:
+      - 8080:8080
+    volumes:
+      - pvc://nfsrods:/nfsrods
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M

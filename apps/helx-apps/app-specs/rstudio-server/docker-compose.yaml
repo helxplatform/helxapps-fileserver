@@ -1,0 +1,18 @@
+---
+# Docker compose formatted system.
+version: "3"
+services:
+  rstudio-server:
+    image: "containers.renci.org/helxplatform/rstudio:0.1.6"
+    ports:
+      - 8080:8080
+    volumes:
+        - pvc://projects-pvc:/projects
+    deploy:
+        resources:
+          limits:
+            cpus: '2'
+            memory: 10000M
+          reservations:
+            cpus: '2'
+            memory: 10000M

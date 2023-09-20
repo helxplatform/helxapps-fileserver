@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+
+   webtop-pgadmin:
+      image: "{{ helx_registry }}/helxplatform/webtop/pgadmin:eduhelx-chip690-v0.0.2"
+      container_name: webtop-pgadmin
+      entrypoint: /init
+      ports:
+        - 3000:3000
+      volumes:
+         - pvc://helx-sidecar-test/sidecar:/sidecar
+      deploy:
+        resources:
+          limits:
+            cpus: '2'
+            memory: 8192M
+          reservations:
+            cpus: '2'
+            memory: 8192M
