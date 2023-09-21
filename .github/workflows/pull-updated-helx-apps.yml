@@ -18,7 +18,7 @@ jobs:
       run: |
         mkdir /tmp/${{ github.repository_owner }}
         cd /tmp/${{ github.repository_owner }}
-        git clone https://github.com/helxplatform/helx-apps.git --branch ${{ inputs.appsBranch }} .
+        git clone https://github.com/helxplatform/helx-apps.git --branch ${{ inputs.appsBranch }} ./helx-apps
 
     # We must remove the .git file from the repo in order to embed it with Go
     # this could probably be done better but the auther is simple.
