@@ -20,8 +20,13 @@ jobs:
         cd /tmp/${{ github.repository_owner }}
         git clone https://github.com/helxplatform/helx-apps.git --branch ${{ inputs.appsBranch }} .
 
-    - name: Remove old helx-apps folder
+    # We must remove the .git file from the repo in order to embed it with Go
+    # this could probably be done better but the auther is simple.
+    - name: Replace helx-apps folder
       run: |
         cd ${{ github.workspace }}/apps
-        ls 
+        rm -rf helx-apps 
+        mv /tmp/${{ github.repository_owner }}/helx-apps ${{ github.workspace }}/apps
+        cd helx-apps 
+        rm .git 
          
