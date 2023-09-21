@@ -5,16 +5,20 @@
 version: "3"
 services:
   jupyter-ds:
-    image: "{{ helx_registry }}/helxplatform/jupyter/datascience-notebook:202304112136"
+    image: "{{ helx_registry }}/helxplatform/jupyter/datascience-notebook:v0.0.5"
+    entrypoint:
+      - /bin/bash
+      - -c
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     ports:
       - 8888:8888
     volumes:
-         - pvc://helx-sidecar-test/sidecar:/sidecar
+        - pvc://projects-pvc:/projects
     deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 4096M
-        reservations:
-          cpus: '.1'
-          memory: 50M
+        resources:
+          limits:
+            cpus: '2'
+            memory: 2048M
+          reservations:
+            cpus: '.5'
+            memory: 1024M
