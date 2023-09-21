@@ -26,8 +26,9 @@ jobs:
       run: |
         cd ${{ github.workspace }}/apps
         rm -rf helx-apps 
-        mv /tmp/${{ github.repository_owner }}/helx-apps ${{ github.workspace }}/apps
-        cd helx-apps 
+        cd /tmp/${{ github.repository_owner }}/ 
+        mv helx-apps ${{ github.workspace }}/apps
+        cd ${{ github.workspace }}/apps/helx-apps 
         rm .git 
     
     - name: Commit new code 
