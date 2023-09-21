@@ -26,10 +26,11 @@ jobs:
       run: |
         cd ${{ github.workspace }}/apps
         rm -rf helx-apps 
-        cd /tmp/${{ github.repository_owner }}/ 
-        mv helx-apps ${{ github.workspace }}/apps
+        cd /tmp/${{ github.repository_owner }}/
+        ls -al
+        cp -R helx-apps ${{ github.workspace }}/apps
         cd ${{ github.workspace }}/apps/helx-apps 
-        rm .git 
+        rm .git
     
     - name: Commit new code 
       uses: EndBug/add-and-commit@v9
