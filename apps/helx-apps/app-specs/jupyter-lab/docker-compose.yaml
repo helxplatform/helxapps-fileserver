@@ -3,18 +3,17 @@ services:
   jupyter-lab:
     image: "{{ helx_registry }}/helxplatform/jupyter-lab:develop"
     container_name: jupyter-lab
-    user: "jovyan:1136"
     entrypoint:
       - /bin/bash
       - -c
-      - start-jupyter-lab.sh
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     ports:
       - 8888:8888
     deploy:
       resources:
         limits:
-          cpus: "2"
-          memory: 10000M
+          cpus: '2'
+          memory: 4096M
         reservations:
-          cpus: "1"
-          memory: 10000M
+          cpus: '.1'
+          memory: 50M
