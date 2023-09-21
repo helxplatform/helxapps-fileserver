@@ -2,7 +2,7 @@ name: Pull Updates to Helx-Apps
 on:
   workflow_dispatch:
     inputs:
-      branch:
+      appsBranch:
         description: What branch to load Helx-Apps standalone fileserver with 
         required: true 
         type: string
@@ -12,13 +12,13 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
-      branch: 
+ 
 
     - name: Clone App Repo 
       run: |
         mkdir /tmp/${{ github.repository_owner }}
         cd /tmp/${{ github.repository_owner }}
-        git clone https://github.com/helxplatform/helx-apps.git --branch ${{ inputs.branch }} .
+        git clone https://github.com/helxplatform/helx-apps.git --branch ${{ inputs.appsBranch }} .
 
     - name: Remove old helx-apps folder
       run: |
