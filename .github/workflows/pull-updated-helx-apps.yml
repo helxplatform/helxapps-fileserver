@@ -29,4 +29,12 @@ jobs:
         mv /tmp/${{ github.repository_owner }}/helx-apps ${{ github.workspace }}/apps
         cd helx-apps 
         rm .git 
-         
+    
+    - name: Commit new code 
+      uses: EndBug/add-and-commit@v9
+      env:
+        GH_TOKEN: ${{ github.token }}
+      with:
+        author_name: ${{ github.actor}}
+        message: "Adding updated helx-apps repo for ${{ inputs.appsBranch }}"
+        add: "${{ github.workspace }}/apps/*"
