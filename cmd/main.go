@@ -1,14 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"log"
 	"net/http"
 
-	apps "github.com/helxplatform/helxapps-fileserver/apps"
+	apps "github.com/helxplatform/helxappsFS/apps"
 )
 
+// This will be populated by Github Actions
+// through makefile, via Dockerfile.
+var embeddedBranch = "ordrd"
+
 func main() {
+
 	mux := http.NewServeMux()
 	// Handler will listen on /helx-apps endpoint
 	// serving embedded files from apps directory
@@ -16,8 +21,17 @@ func main() {
 
 	// Handler to validate liveness of server
 	mux.HandleFunc("/liveness", func(w http.ResponseWriter, r *http.Request) {
-		// TODO: format Json Response
-		fmt.Fprint(w, "<h1> Alive </h1>")
+		resp := map[string]string{
+			"status":    "ok",
+			"helx-apps": embeddedBranch,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		js, err := json.Marshal(resp)
+		if err != nil {
+			http.Error(w, "The server encountered and error", http.StatusInternalServerError)
+		}
+		w.Write(js)
 	})
 
 	// TODO: Add slog and graceful shutdown
